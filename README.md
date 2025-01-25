@@ -96,7 +96,8 @@ class ExampleService {
 	}
 }
 const singleton = AsyncSingleton(ExampleService);
-const instance1 = await singleton.getInstance(2, 3); //typescript will enforce the initialize signature with arg1: number and arg2: number 
+//typescript will enforce the initialize signature with arg1: number and arg2: number
+const instance1 = await singleton.getInstance(2, 3);  
 const instance2 = await singleton.getInstance(); // X -> will complain
 expect(instance1).toBe(instance2);
 ```
