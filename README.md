@@ -1,4 +1,4 @@
-# 🚀 ts-singleton
+# 🚀 ts-singletonify
 
 ![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![TypeScript](https://img.shields.io/badge/language-TypeScript-blue)
