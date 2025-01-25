@@ -1,6 +1,6 @@
 {
   "name": "ts-singletonify",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Typescript utility to enforce singleton instances",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -15,7 +15,7 @@
   "keywords": [],
   "author": "Jeyhun Tahirov",
   "license": "MIT",
-  "repository": "github.com/JohnnyJumper/ts-singleton",
+  "repository": "github.com/JohnnyJumper/ts-singletonify",
   "devDependencies": {
     "@vitest/coverage-v8": "^3.0.4",
     "eslint": "^9.19.0",
