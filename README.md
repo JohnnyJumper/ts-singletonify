@@ -18,13 +18,13 @@ A TypeScript utility to enforce singleton instances in your applications.
 To install using npm:
 
 ```
-npm install ts-singleton
+npm install ts-singletonify
 ```
 
 Or using Yarn:
 
 ```
-yarn add ts-singleton
+yarn add ts-singletonify
 ```
 
 ## 🚀 Usage
@@ -33,7 +33,7 @@ All you need is to pass your class to the Singleton function and it will singlet
 Any class should work, giving you full control over it. 
 
 ```ts
-import { Singleton } from "ts-singleton";
+import { Singleton } from "ts-singletonify";
 
 class ExampleService {
   sayHello(): string {
