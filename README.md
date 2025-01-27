@@ -147,8 +147,8 @@ const params = {
   arg2: [123, 12],
 };
 
-// AsyncSingleton enforces params to be { arg1: string, arg2: number[] }
-const singleton = await AsyncSingleton(ExampleService, params);
+// Singleton enforces params to be { arg1: string, arg2: number[] }
+const singleton = Singleton(ExampleService, params);
 const instance1 = singleton.getInstance();
 const instance2 = singleton.getInstance();
 ```
