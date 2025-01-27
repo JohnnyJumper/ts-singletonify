@@ -4,27 +4,17 @@ export type Promisify<T> = {
     : T[K];
 };
 
-export type SingletonClass<T, TArgs extends any[] = []> = {
-  getInstance: (...args: TArgs) => T;
+export type SingletonClass<T> = {
+  getInstance: () => T;
 };
-
-export type AsyncSingletonClass<T, TArgs extends any[] = []> = Promisify<
-  SingletonClass<T, TArgs>
->;
-
-export interface Initializable<TArgs extends any[] = []> {
-  initialize?: (...args: TArgs) => void | Promise<void>;
-}
 
 export type ExtractArgs<T> = T extends {
   initialize?: (...args: infer A) => any;
 }
-  ? A
-  : [];
-
-export interface Initializable<TArgs extends any[] = []> {
-  initialize?: (...args: TArgs) => void | Promise<void>;
-}
+  ? A extends []
+    ? never[]
+    : A
+  : never[];
 
 export function instanceInitializeGuard<T>(
   instance: T

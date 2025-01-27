@@ -70,6 +70,8 @@ expect(instance1.initialized).toBe(true);
 Use **AsyncSingleton** for async initialization functions:
 
 ```ts
+import { AsyncSingleton } from "ts-singletonify";
+
 class ExampleService{
   initialize = false;
   async initialize(): Promise<void> {
@@ -78,13 +80,15 @@ class ExampleService{
   }
 }
 
-const singleton = AsyncSingleton(ExampleService)
-const instance1 = await singleton.getInstance();
-const instance2 = await singleton.getInstance();
+// AsyncSingleton is a Promise that will attempt to run initialize().
+const singleton = await AsyncSingleton(ExampleService)
+const instance1 = singleton.getInstance();
+const instance2 = singleton.getInstance();
 console.log(instance1 === instance2);
 ```
 
-**initialize function** can have any signature and accepts any parameters. You will need to pass these parameters into getInstance to get the instance.
+**initialize function** can have any signature and accepts any parameters. 
+You will need to pass these parameters into *Singleton* or *AsyncSingleton* function.
 
 ```ts
 class ExampleService {
@@ -95,14 +99,61 @@ class ExampleService {
     this.initialized = true;
   }
 }
-const singleton = AsyncSingleton(ExampleService);
-//typescript will enforce the initialize signature with arg1: number and arg2: number
-const instance1 = await singleton.getInstance(2, 3);  
-const instance2 = await singleton.getInstance(); // X -> will complain
-expect(instance1).toBe(instance2);
+
+//typescript will enforce the initialize signature with arg1: number and arg2: number to be passed to AsyncSingleton
+const singleton = await AsyncSingleton(ExampleService, 2, 3);
+const instance1 = singleton.getInstance();  
+const instance2 = singleton.getInstance(); 
 ```
 
-***NOTE*** If you currently have a constructor that takes some arguments you will need to move this logic into the initialize function instead and pass arguments to getInstance. If your constructor doesn't take any params it is alright to have some logic going on.
+You can spread them as well ...[2,3] 
+
+```ts
+class ExampleService {
+  initialized = false;
+
+  async initialize(arg1: number, arg2: number): Promise<void> {
+    await new Promise((res) => setTimeout(res, 100));
+    this.initialized = true;
+  }
+}
+
+const singleton = await AsyncSingleton(ExampleService, ...[2, 3]);
+const instance1 = singleton.getInstance();  
+const instance2 = singleton.getInstance();
+console.log(instance1 === instance2) // true
+console.log(instance1.initialized) // true
+```
+
+or just pass an object for readability
+```ts
+class ExampleService {
+  initialized: boolean = false;
+  params: { arg1: string; arg2: number[] };
+
+  constructor() {
+    this.initialized = true;
+  }
+
+  initialize(params: { arg1: string; arg2: number[] }) {
+    this.params = {
+      arg1: params.arg1,
+      arg2: params.arg2,
+    };
+  }
+}
+const params = {
+  arg1: "test",
+  arg2: [123, 12],
+};
+
+// Singleton enforces params to be { arg1: string, arg2: number[] }
+const singleton = Singleton(ExampleService, params);
+const instance1 = singleton.getInstance();
+const instance2 = singleton.getInstance();
+```
+
+***NOTE*** If you currently have a constructor that takes some arguments you will need to move this logic into the initialize function instead. If your constructor doesn't take any params it is alright to have some logic going on.
 
 ## ⚙️ Build
 
