@@ -88,7 +88,7 @@ console.log(instance1 === instance2);
 ```
 
 **initialize function** can have any signature and accepts any parameters. 
-You will need to pass these parameters into the Singleton or AsyncSingleton function.
+You will need to pass these parameters into *Singleton* or *AsyncSingleton* function.
 
 ```ts
 class ExampleService {
