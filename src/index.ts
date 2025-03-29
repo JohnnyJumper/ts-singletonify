@@ -47,4 +47,4 @@ async function AsyncSingleton<T, TArgs extends ExtractArgs<T>>(
   return SingletonBase;
 }
 
-export { Singleton, AsyncSingleton };
+export { Singleton, AsyncSingleton, SingletonClass };
